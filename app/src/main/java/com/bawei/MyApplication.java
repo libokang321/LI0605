@@ -12,6 +12,7 @@ import com.uuzuche.lib_zxing.activity.ZXingLibrary;
     @Override
     public void onCreate() {
         super.onCreate();
+
         ZXingLibrary.initDisplayOpinion(this);
     }
 }
