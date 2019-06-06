@@ -84,16 +84,40 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         //打开相册调取本地二维码图片，并识别打印
+//        if (requestCode == 1) {
+//            if (data != null) {
+//                Uri uri = data.getData();
+//                ContentResolver cr = getContentResolver();
+//                try {
+//                    Bitmap mbitmap = MediaStore.Images.Media.getBitmap(cr, uri);
+//                    CodeUtils.analyzeBitmap(""+mbitmap, new CodeUtils.AnalyzeCallback() {
+//                        @Override
+//                        public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
+//                            Toast.makeText(MainActivity.this, "解析结果" + result, Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        @Override
+//                        public void onAnalyzeFailed() {
+//                            Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//                    if (mbitmap != null) {
+//                        mbitmap.recycle();
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+        //
         if (requestCode == 1) {
             if (data != null) {
                 Uri uri = data.getData();
-                ContentResolver cr = getContentResolver();
                 try {
-                    Bitmap mbitmap = MediaStore.Images.Media.getBitmap(cr, uri);
-                    CodeUtils.analyzeBitmap(String.valueOf(mbitmap), new CodeUtils.AnalyzeCallback() {
+                    CodeUtils.analyzeBitmap(ImageUtil.getImageAbsolutePath(this, uri), new CodeUtils.AnalyzeCallback() {
                         @Override
                         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
-                            Toast.makeText(MainActivity.this, "解析结果" + result, Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -101,14 +125,18 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
                         }
                     });
-                    if (mbitmap != null) {
-                        mbitmap.recycle();
-                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-        //
+
+        else if (requestCode == 1) {
+            Toast.makeText(this, "从设置页面返回...", Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
+
+
 }
+
